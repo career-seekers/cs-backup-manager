@@ -18,12 +18,12 @@ class YandexDiskService(
     @param:Qualifier("yandexDiskClient") private val webClient: WebClient,
 ) {
 
-    fun uploadFileToDisk(filePath: String, filename: String, dbName: DatabaseNames): Mono<Void> {
+    fun uploadFileToDisk(filePath: String, filename: String, database: DatabaseNames): Mono<Void> {
         return Mono.fromCallable { Files.readAllBytes(Paths.get(filePath)) }
             .subscribeOn(Schedulers.boundedElastic())
             .flatMap { fileBytes ->
                 webClient.get()
-                    .uri("/v1/disk/resources/upload?path=/career-seekers-backups/db_dump/${dbName.getAlias()}/$filename&overwrite=true")
+                    .uri("/v1/disk/resources/upload?path=/career-seekers-backups/db_dump/${database.getAlias()}/${filename}&overwrite=true")
                     .header("Authorization", properties.oauthToken)
                     .retrieve()
                     .bodyToMono(JsonNode::class.java)
