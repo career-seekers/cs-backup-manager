@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 import java.io.File
 
 @Service
-@Refreshable(900_000)
+@Refreshable
 class FilesServicePostgresBackupService(private val properties: FilesServiceDatabaseConfigurationProperties) :
     IPostgresBackupService {
 
