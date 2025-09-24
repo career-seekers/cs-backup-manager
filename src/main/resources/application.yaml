@@ -1,3 +1,35 @@
 spring:
   application:
     name: cs-backup-manager
+
+database:
+  us-pg:
+    url: ${US_DB_URL}
+    username: ${US_DB_USER}
+    password: ${US_DB_PASSWORD}
+    schema: ${US_DB_SCHEMA}
+    host: ${US_DB_HOST}
+    port: ${US_DB_PORT}
+    container-name: ${US_DB_CONTAINER_NAME}
+    backup-name: ${US_DB_BACKUP_NAME}
+    db_name: ${US_DB_NAME}
+  es-pg:
+    url: ${ES_DB_URL}
+    username: ${ES_DB_USER}
+    password: ${ES_DB_PASSWORD}
+    schema: ${ES_DB_SCHEMA}
+    host: ${ES_DB_HOST}
+    port: ${ES_DB_PORT}
+    container-name: ${ES_DB_CONTAINER_NAME}
+    backup-name: ${ES_DB_BACKUP_NAME}
+    db_name: ${ES_DB_NAME}
+  fs-pg:
+    url: ${FS_DB_URL}
+    username: ${FS_DB_USER}
+    password: ${FS_DB_PASSWORD}
+    schema: ${FS_DB_SCHEMA}
+    host: ${FS_DB_HOST}
+    port: ${FS_DB_PORT}
+    container-name: ${FS_DB_CONTAINER_NAME}
+    backup-name: ${FS_DB_BACKUP_NAME}
+    db_name: ${FS_DB_NAME}
