@@ -1,21 +1,26 @@
 package org.careerseekers.csbackupmanager.services
 
 import org.careerseekers.csbackupmanager.config.properties.IDatabaseProperties
+import org.careerseekers.csbackupmanager.dto.DatabaseBackupResponseDto
+import org.careerseekers.csbackupmanager.enums.DatabaseNames
 import java.io.File
 import java.time.LocalDateTime
 
 interface IPostgresBackupService {
+    val database: DatabaseNames
+    val databaseProperties: IDatabaseProperties
+    val yandexDiskService: YandexDiskService
 
-    fun createBackup(dumpsDir: File, properties: IDatabaseProperties): String {
+    fun createBackup(dumpsDir: File): DatabaseBackupResponseDto {
         if (!dumpsDir.exists()) {
             dumpsDir.mkdirs()
         }
-        val backupFile = File(dumpsDir, "${properties.backupName}_${LocalDateTime.now()}.sql.gz").absolutePath
-        val containerName = properties.containerName
+        val backupFile = File(dumpsDir, "${databaseProperties.backupName}_${LocalDateTime.now()}.sql.gz")
+        val containerName = databaseProperties.containerName
 
         val command = listOf(
             "bash", "-c",
-            "docker exec -t $containerName pg_dump -U ${properties.username} -d ${properties.dbName} | gzip -9 > $backupFile"
+            "docker exec -t $containerName pg_dump -U ${databaseProperties.username} -d ${databaseProperties.dbName} | gzip -9 > ${backupFile.absolutePath}"
         )
 
         val process = ProcessBuilder(command)
@@ -27,6 +32,6 @@ interface IPostgresBackupService {
             throw RuntimeException("Backup process failed with code $exitCode")
         }
 
-        return backupFile
+        return DatabaseBackupResponseDto(backupFile.absolutePath, backupFile.name)
     }
 }

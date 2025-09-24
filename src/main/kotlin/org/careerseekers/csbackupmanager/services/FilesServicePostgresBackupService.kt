@@ -1,21 +1,37 @@
 package org.careerseekers.csbackupmanager.services
 
 import jakarta.annotation.PostConstruct
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import org.careerseekers.csbackupmanager.annotations.Refreshable
 import org.careerseekers.csbackupmanager.config.properties.FilesServiceDatabaseConfigurationProperties
+import org.careerseekers.csbackupmanager.enums.DatabaseNames
 import org.springframework.stereotype.Service
 import java.io.File
 
 @Service
 @Refreshable
-class FilesServicePostgresBackupService(private val properties: FilesServiceDatabaseConfigurationProperties) :
-    IPostgresBackupService {
+class FilesServicePostgresBackupService(
+    override val databaseProperties: FilesServiceDatabaseConfigurationProperties,
+    override val yandexDiskService: YandexDiskService,
+) : IPostgresBackupService {
 
+    override val database = DatabaseNames.FILES_SERVICE_PG
+    private val coroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
 
     @PostConstruct
     fun init() {
         val dumpsDir = File("./db/fs-postgres")
+        val backupResponse = createBackup(dumpsDir)
 
-        createBackup(dumpsDir, properties)
+        coroutineScope.launch {
+            yandexDiskService.uploadFileToDisk(
+                filePath = backupResponse.absolutePath,
+                filename = backupResponse.fileName,
+                database = database
+            ).subscribe()
+        }
     }
 }
