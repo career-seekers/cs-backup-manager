@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 @ConfigurationProperties(prefix = "database.es-pg")
-class EventsServiceDatabaseConfigurationProperties : IDatabaseProperties{
+class EventsServiceDatabaseConfigurationProperties : IDatabaseProperties {
     lateinit var url: String
     override lateinit var username: String
     lateinit var password: String
