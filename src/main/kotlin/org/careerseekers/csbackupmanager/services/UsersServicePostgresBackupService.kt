@@ -5,6 +5,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.reactor.awaitSingleOrNull
 import org.careerseekers.csbackupmanager.annotations.Refreshable
 import org.careerseekers.csbackupmanager.config.properties.UserServiceDatabaseConfigurationProperties
 import org.careerseekers.csbackupmanager.enums.DatabaseNames
@@ -35,7 +36,7 @@ class UsersServicePostgresBackupService(
                 filePath = backupResponse.absolutePath,
                 filename = backupResponse.fileName,
                 database = database
-            ).subscribe()
+            ).awaitSingleOrNull()
         }
     }
 }
