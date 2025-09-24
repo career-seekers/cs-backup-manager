@@ -15,7 +15,7 @@ interface IPostgresBackupService {
         if (!dumpsDir.exists()) {
             dumpsDir.mkdirs()
         }
-        val backupFile = File(dumpsDir, "${databaseProperties.backupName}_${LocalDateTime.now()}.sql.gz")
+        val backupFile = File(dumpsDir, "${databaseProperties.backupName}_${LocalDateTime.now().withNano(0).toString().replace(":", "-")}.sql.gz")
         val containerName = databaseProperties.containerName
 
         val command = listOf(
