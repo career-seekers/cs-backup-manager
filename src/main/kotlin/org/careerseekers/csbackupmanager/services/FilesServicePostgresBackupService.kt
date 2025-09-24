@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import org.careerseekers.csbackupmanager.annotations.Refreshable
 import org.careerseekers.csbackupmanager.config.properties.FilesServiceDatabaseConfigurationProperties
 import org.careerseekers.csbackupmanager.enums.DatabaseNames
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.io.File
 
@@ -18,12 +19,15 @@ class FilesServicePostgresBackupService(
     override val yandexDiskService: YandexDiskService,
 ) : IPostgresBackupService {
 
+    @Value("\${storage-dir}")
+    private lateinit var storagePath: String
+
     override val database = DatabaseNames.FILES_SERVICE_PG
     private val coroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
 
     @PostConstruct
     fun init() {
-        val dumpsDir = File("./db/fs-postgres")
+        val dumpsDir = File("${storagePath}/db/fs-postgres")
         val backupResponse = createBackup(dumpsDir)
 
         coroutineScope.launch {

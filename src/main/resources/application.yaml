@@ -7,6 +7,8 @@ cloud:
     base-url: ${YANDEX_BASE_URL}
     oauth-token: ${YANDEX_OAUTH}
 
+storage-dir: ${BASIC_STORAGE_DIR}
+
 database:
   us-pg:
     url: ${US_DB_URL}
