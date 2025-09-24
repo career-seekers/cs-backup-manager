@@ -13,7 +13,7 @@ class EventsServicePostgresBackupService(private val properties: EventsServiceDa
 
     @PostConstruct
     fun init() {
-        val dumpsDir = File("./db/es-pg")
+        val dumpsDir = File("./db/es-postgres")
 
         createBackup(dumpsDir, properties)
     }

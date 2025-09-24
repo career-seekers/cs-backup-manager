@@ -12,7 +12,7 @@ class UsersServicePostgresBackupService(private val properties: UserServiceDatab
 
     @PostConstruct
     fun init() {
-        val dumpsDir = File("./db/us-pg")
+        val dumpsDir = File("./db/us-postgres")
 
         createBackup(dumpsDir, properties)
     }

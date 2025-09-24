@@ -14,7 +14,7 @@ class FilesServicePostgresBackupService(private val properties: FilesServiceData
 
     @PostConstruct
     fun init() {
-        val dumpsDir = File("./db/fs-pg")
+        val dumpsDir = File("./db/fs-postgres")
 
         createBackup(dumpsDir, properties)
     }
