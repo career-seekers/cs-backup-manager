@@ -5,14 +5,14 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 @ConfigurationProperties(prefix = "database.fs-pg")
-class FilesServiceDatabaseConfigurationProperties {
+class FilesServiceDatabaseConfigurationProperties : IDatabaseProperties {
     lateinit var url: String
-    lateinit var username: String
+    override lateinit var username: String
     lateinit var password: String
     lateinit var schema: String
     lateinit var host: String
     lateinit var port: String
-    lateinit var containerName: String
-    lateinit var backupName: String
-    lateinit var dbName: String
+    override lateinit var containerName: String
+    override lateinit var backupName: String
+    override lateinit var dbName: String
 }
