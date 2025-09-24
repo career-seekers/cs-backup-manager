@@ -2,6 +2,9 @@ spring:
   application:
     name: cs-backup-manager
 
+server:
+  port: ${SERVER_INTERNAL_PORT}
+
 cloud:
   disk:
     base-url: ${YANDEX_BASE_URL}
