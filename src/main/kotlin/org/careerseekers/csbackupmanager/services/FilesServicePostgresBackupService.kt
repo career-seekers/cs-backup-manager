@@ -5,6 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.reactor.awaitSingleOrNull
+import org.careerseekers.csbackupmanager.annotations.Refreshable
 import org.careerseekers.csbackupmanager.config.properties.FilesServiceDatabaseConfigurationProperties
 import org.careerseekers.csbackupmanager.enums.DatabaseNames
 import org.springframework.beans.factory.annotation.Value
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service
 import java.io.File
 
 @Service
+@Refreshable
 class FilesServicePostgresBackupService(
     override val databaseProperties: FilesServiceDatabaseConfigurationProperties,
     override val yandexDiskService: YandexDiskService,

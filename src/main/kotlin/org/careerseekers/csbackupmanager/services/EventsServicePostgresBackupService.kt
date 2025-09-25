@@ -9,15 +9,12 @@ import org.careerseekers.csbackupmanager.annotations.Refreshable
 import org.careerseekers.csbackupmanager.config.properties.EventsServiceDatabaseConfigurationProperties
 import org.careerseekers.csbackupmanager.enums.DatabaseNames
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.beans.factory.config.ConfigurableBeanFactory
-import org.springframework.context.annotation.Scope
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import java.io.File
 
 @Service
 @Refreshable
-@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 class EventsServicePostgresBackupService(
     override val databaseProperties: EventsServiceDatabaseConfigurationProperties,
     override val yandexDiskService: YandexDiskService,

@@ -5,17 +5,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.reactor.awaitSingleOrNull
+import org.careerseekers.csbackupmanager.annotations.Refreshable
 import org.careerseekers.csbackupmanager.config.properties.UserServiceDatabaseConfigurationProperties
 import org.careerseekers.csbackupmanager.enums.DatabaseNames
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.beans.factory.config.ConfigurableBeanFactory
-import org.springframework.context.annotation.Scope
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import java.io.File
 
 @Service
-@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@Refreshable
 class UsersServicePostgresBackupService(
     override val databaseProperties: UserServiceDatabaseConfigurationProperties,
     override val yandexDiskService: YandexDiskService,
