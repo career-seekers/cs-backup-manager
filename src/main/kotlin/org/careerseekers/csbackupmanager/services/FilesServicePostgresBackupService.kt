@@ -24,7 +24,7 @@ class FilesServicePostgresBackupService(
     override val database = DatabaseNames.FILES_SERVICE_PG
     private val coroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
 
-    @Scheduled(fixedDelay = 60_000)
+    @Scheduled(fixedDelay = 900_000)
     override fun invokeRefreshableAction() {
         val dumpsDir = File("${storagePath}/db/fs-postgres")
         val backupResponse = createBackup(dumpsDir)
