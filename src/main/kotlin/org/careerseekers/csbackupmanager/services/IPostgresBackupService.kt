@@ -19,7 +19,7 @@ interface IPostgresBackupService {
         val containerName = databaseProperties.containerName
 
         val command = listOf(
-            "bash", "-c",
+            "sh", "-c",
             "docker exec -t $containerName pg_dump -U ${databaseProperties.username} -d ${databaseProperties.dbName} | gzip -9 > ${backupFile.absolutePath}"
         )
 
